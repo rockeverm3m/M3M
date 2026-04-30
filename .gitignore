@@ -1,0 +1,4 @@
+# M3M — Memory × Method × Map
+.DS_Store
+__pycache__/
+*.pyc
