@@ -1,7 +1,7 @@
 ---
 name: m3m
 description: Agent 记忆骨架 — 场景导航 + 分层加载 + 三位一体闭环。Reset 后 30 秒恢复工作状态。
-version: 1.1.0
+version: 1.2.0
 type: skill
 author: rk
 tags: [memory, context, architecture, agent-design, project-management]
@@ -102,6 +102,28 @@ python3 init-agent-memory.py /path/to/project --with-hooks
 ```
 
 安装后需执行 `/hooks` 刷新或重启 session 生效。
+
+---
+
+---
+## 记忆健康检查（v1.2 新增）
+
+定期体检，防止骨架腐烂：
+
+```bash
+python3 scripts/check-memory-health.py /path/to/project
+```
+
+**检查项：**
+| 维度 | 检查什么 | 红线 |
+|------|---------|------|
+| rules.md | 最后修改时间 | > 30 天未更新 |
+| error-log.md | 重复模式 + 高频标签 | 同标签 ≥ 3 次踩坑 |
+| MEMORY.md | 场景路由完整性 + 文件索引 | 死路由 / 空索引 |
+
+**输出红/黄/绿报告：** 🔴 需要关注 / 🟡 有点问题 / 🟢 骨架健康
+
+建议每周跑一次，或用 cron 自动跑。
 
 ---
 

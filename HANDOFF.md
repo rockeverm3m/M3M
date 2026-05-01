@@ -1,16 +1,16 @@
 # HANDOFF.md — M3M 项目进度
 
 ## 当前版本
-v1.1.0（2026-05-01 发布）
+v1.2.0（2026-05-02 发布）
 
 ## 上次做了什么
-- v1.1.0：`--with-hooks` 一键安装 Claude Code hooks（PostToolUse + Stop）
-- 新增 templates/hooks.json
-- init-agent-memory.py 支持自动计算 memory 路径 + 合并 hooks
+- v1.2.0：新增 `scripts/check-memory-health.py` — 记忆健康检查脚本
+- 扫描 rules.md 过期、error-log.md 重复模式、MEMORY.md 死路由
+- 输出红/黄/绿综合评级
 
 ## 迭代路线图
 
-### v1.2 — 记忆健康检查
+### v1.2 — 记忆健康检查 ✅
 定期验证 M3M 骨架健康度：
 - rules.md 是否超过 30 天未更新？
 - error-log.md 是否有重复错误模式？
