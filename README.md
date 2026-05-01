@@ -1,27 +1,35 @@
-# M3M — Memory × Method × Map
+# M3M — Memory x Method x Map
 
-> Your agent forgets. M3M gives it a spine.
+> Tried RAG, vector DBs, memory servers — and your agent still forgets? Try this.
 
 ---
 
-## You know this feeling
+## The problem
+
+You carefully brief your agent. It nods along. Next session:
 
 ```
-You: "Continue where we left off."
-Agent: "I don't have context from previous sessions. Could you summarize?"
+Agent: "What's the file path?"
 ```
 
-Or worse:
+Or you repeat the same rules. Over and over. It never sticks.
 
-```
-Agent: *makes the same bug you fixed three days ago*
-You: "WE ALREADY FIXED THIS."
-You: *rage quits*
-```
+**Here's what everyone misses:** you strapped a RAG backpack onto your agent. But the agent has no idea what's inside it.
 
-You've tried vector databases. RAG. Memory servers. Still happens.
+---
 
-**Here's why:** everyone's selling you muscles. Nobody checked if your skeleton was intact.
+## What M3M does
+
+Four files.
+
+| File | Job |
+|------|-----|
+| Scene router | Agent knows which tool to reach for, when |
+| Rules | You say it once. It stays. |
+| Error log | Fixed a bug? Never again. |
+| Session bridge | Picks up where you left off |
+
+No database. No vector embeddings. No API keys. Just markdown files. Your agent finally knows what it knows.
 
 ---
 
@@ -31,30 +39,56 @@ You've tried vector databases. RAG. Memory servers. Still happens.
 python3 init-agent-memory.py .
 ```
 
-That's it. Now your agent can do things you didn't think were possible:
+- What's left from last session
+- Experience stacks up, agent gets better
+- Same mistake? Not twice.
 
-> "I found our last session. We were refactoring the health data pipeline. Also — I checked my error log and I see we fixed that DELETE bug on the 28th. I won't repeat it."
-
-> "Before I answer that: your rules say don't touch the smart home credentials. They're in the config file. I'll read from there."
-
-> "This task is a scene E — data debugging. I only loaded the error log and the pipeline script. Context footprint: 420 tokens."
-
----
-
-## v1.1 — Auto Hooks
+Want auto-reminders after every edit?
 
 ```bash
 python3 init-agent-memory.py . --with-hooks
 ```
 
-Installs Claude Code hooks so the trinity check fires automatically after every file edit and on session stop. Agent doesn't have to remember — the harness does.
+Agent gets nudged to update its memory. No discipline required.
 
 ---
 
-## What's inside?
+## Health check (v1.2)
 
-Run the command. You'll see.
+Skeletons rot. Check yours:
+
+```bash
+python3 scripts/check-memory-health.py .
+```
+
+```
+🔍  M3M memory health check
+
+📋 rules      🟢 still fresh
+📋 errors     🟡 worth a review
+📋 routes     🟡 1 gap found
+
+🏥 Overall: 🟡 not bad
+```
+
+Three checks. Red / yellow / green. Run it weekly.
 
 ---
 
-MIT. Stars help more agents grow spines.
+## Before and after
+
+Without M3M:
+
+```
+Agent: "This won't work."
+```
+
+With M3M:
+
+```
+Agent: "We hit this last time. I know what to do."
+```
+
+---
+
+MIT. Stars help more agents know what they know.

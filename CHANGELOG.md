@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.0] — 2026-05-02
+
+### Added
+- `scripts/check-memory-health.py`: 记忆健康检查脚本
+- 检查 rules.md 过期（> 30 天）、error-log.md 重复模式、MEMORY.md 死路由
+- 红/黄/绿综合评级报告
+
+### Changed
+- `skill/SKILL.md`: 新增「记忆健康检查」章节，版本号 1.1.0 → 1.2.0
+
 ## [1.1.0] — 2026-05-01
 
 ### Added
