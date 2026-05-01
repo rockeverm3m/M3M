@@ -1,0 +1,25 @@
+{
+  "PostToolUse": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "python3 -c \"\nimport json, sys\nfrom pathlib import Path\nfrom datetime import datetime\n\ndata = json.load(sys.stdin)\nfp = data.get('tool_input', {}).get('file_path', '')\nif not fp or 'memory/' in fp or '/.claude/' in fp or 'settings.json' in fp or 'CLAUDE.md' in fp:\n    sys.exit(0)\nreminder = Path('/tmp/claude/trinity-check-reminder')\nts = datetime.now().isoformat()\nreminder.write_text(f'{fp}|{ts}')\nprint(json.dumps({\n    'hookSpecificOutput': {\n        'hookEventName': 'PostToolUse',\n        'additionalContext': '📐 M3M 三位一体：文件已修改。① MEMORY.md 场景路由需要更新？② 需要写入 rules.md？③ session_summary.md 需要同步？'\n    }\n}))\n\"",
+          "timeout": 10
+        }
+      ]
+    }
+  ],
+  "Stop": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "python3 -c \"\nimport json\nfrom pathlib import Path\nfrom datetime import datetime\ns = Path('__MEMORY_PATH__') / 'session_summary.md'\nif s.exists():\n    mtime = datetime.fromtimestamp(s.stat().st_mtime)\n    if mtime.strftime('%Y-%m-%d') == datetime.now().strftime('%Y-%m-%d'):\n        print(json.dumps({'systemMessage': '✅ M3M: session_summary.md 今日已更新'}))\n    else:\n        print(json.dumps({'systemMessage': '⚠️ M3M: session_summary.md 今日未更新，下次启动请补充'}))\nelse:\n    print(json.dumps({'systemMessage': '⚠️ M3M: session_summary.md 不存在'}))\n\"",
+          "timeout": 10
+        }
+      ]
+    }
+  ]
+}

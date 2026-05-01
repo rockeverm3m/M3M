@@ -41,9 +41,19 @@ That's it. Now your agent can do things you didn't think were possible:
 
 ---
 
+## v1.1 — Auto Hooks
+
+```bash
+python3 init-agent-memory.py . --with-hooks
+```
+
+Installs Claude Code hooks so the trinity check fires automatically after every file edit and on session stop. Agent doesn't have to remember — the harness does.
+
+---
+
 ## What's inside?
 
-Run the command.
+Run the command. You'll see.
 
 ---
 

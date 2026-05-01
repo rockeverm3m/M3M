@@ -1,7 +1,7 @@
 ---
 name: m3m
 description: Agent 记忆骨架 — 场景导航 + 分层加载 + 三位一体闭环。Reset 后 30 秒恢复工作状态。
-version: 1.0.0
+version: 1.1.0
 type: skill
 author: rk
 tags: [memory, context, architecture, agent-design, project-management]
@@ -86,6 +86,25 @@ Agent 根据用户说的话匹配场景，只加载该场景需要的文件。
 
 ---
 
+## 自动触发（v1.1 新增）
+
+`init-agent-memory.py --with-hooks` 会自动在 `.claude/settings.json` 安装两个 hook：
+
+| Hook | 触发时机 | 行为 |
+|------|---------|------|
+| PostToolUse (Edit\|Write) | 文件修改后 | 注入三位一体提醒到 Agent 上下文 |
+| Stop | 会话结束时 | 检查 session_summary.md 是否已更新 |
+
+**效果：** Agent 不用靠自觉——每次修改文件、每次会话结束，三位一体检查自动触发。
+
+```
+python3 init-agent-memory.py /path/to/project --with-hooks
+```
+
+安装后需执行 `/hooks` 刷新或重启 session 生效。
+
+---
+
 ## 模板文件
 
 本项目 `templates/` 目录下有可复用的模板：
@@ -93,5 +112,6 @@ Agent 根据用户说的话匹配场景，只加载该场景需要的文件。
 - `rules.md` — 执行规则模板
 - `error-log.md` — 踩坑归档模板
 - `session_summary.md` — 会话摘要模板
+- `hooks.json` — Claude Code hooks 配置模板（v1.1）
 
 用 `scripts/init-agent-memory.py` 一键部署到任何项目。
